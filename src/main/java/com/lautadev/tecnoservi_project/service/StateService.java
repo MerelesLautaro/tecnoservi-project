@@ -21,7 +21,7 @@ public class StateService implements IStateService{
     }
 
     @Override
-    public List<State> getStats() {
+    public List<State> getStates() {
         return stateRepository.findAll();
     }
 

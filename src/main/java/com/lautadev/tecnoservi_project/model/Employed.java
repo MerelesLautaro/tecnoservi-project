@@ -15,7 +15,7 @@ public class Employed extends Person{
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account account;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "fk_work_team")
     private WorkTeam workTeam;
 }

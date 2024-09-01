@@ -1,10 +1,7 @@
 package com.lautadev.tecnoservi_project.model;
 
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +15,9 @@ import java.util.List;
 @Entity
 @Table(name = "work_teams")
 public class WorkTeam {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy = "workTeam", cascade = CascadeType.ALL)
-    List<Employed> employees;
+    @OneToMany(mappedBy = "workTeam")
+    private List<Employed> employees;
 }
