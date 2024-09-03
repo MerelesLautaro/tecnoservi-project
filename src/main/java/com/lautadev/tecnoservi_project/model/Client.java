@@ -19,4 +19,5 @@ import java.util.List;
 public class Client extends Person{
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Order> orderList;
+    private String address;
 }

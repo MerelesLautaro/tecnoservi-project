@@ -10,12 +10,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "employess")
+@Table(name = "employees")
 public class Employed extends Person{
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account account;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_work_team")
     private WorkTeam workTeam;
 }

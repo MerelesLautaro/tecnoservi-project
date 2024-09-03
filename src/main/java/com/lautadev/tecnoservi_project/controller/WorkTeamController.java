@@ -1,5 +1,6 @@
 package com.lautadev.tecnoservi_project.controller;
 
+import com.lautadev.tecnoservi_project.dto.WorkTeamDTO;
 import com.lautadev.tecnoservi_project.model.WorkTeam;
 import com.lautadev.tecnoservi_project.service.IWorkTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,14 @@ public class WorkTeamController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<WorkTeam>> getWorkTeams(){
+    public ResponseEntity<List<WorkTeamDTO>> getWorkTeams(){
         return ResponseEntity.ok(workTeamService.getWorkTeams());
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<WorkTeam> findWorkTeam(@PathVariable Long id){
-        Optional<WorkTeam> workTeam = workTeamService.findWorkTeam(id);
-        return workTeam.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<WorkTeamDTO> findWorkTeam(@PathVariable Long id){
+        Optional<WorkTeamDTO> workTeamDTO = workTeamService.findWorkTeam(id);
+        return workTeamDTO.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/delete/{id}")

@@ -1,5 +1,6 @@
 package com.lautadev.tecnoservi_project.service;
 
+import com.lautadev.tecnoservi_project.dto.ClientDTO;
 import com.lautadev.tecnoservi_project.model.Client;
 import com.lautadev.tecnoservi_project.repository.IClientRepository;
 import com.lautadev.tecnoservi_project.throwable.EntityNotFoundException;
@@ -7,6 +8,7 @@ import com.lautadev.tecnoservi_project.util.NullAwareBeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,13 +23,21 @@ public class ClientService implements IClienteService {
     }
 
     @Override
-    public List<Client> getClients() {
-        return clientRepository.findAll();
+    public List<ClientDTO> getClients() {
+        List<Client> clients = clientRepository.findAll();
+        List<ClientDTO> clientDTOS = new ArrayList<>();
+
+        for(Client client:clients){
+            clientDTOS.add(ClientDTO.fromClient(client));
+        }
+
+        return clientDTOS;
     }
 
     @Override
-    public Optional<Client> findClient(Long id) {
-        return clientRepository.findById(id);
+    public Optional<ClientDTO> findClient(Long id) {
+        Client client = clientRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Entity Not Found"));
+        return Optional.ofNullable(ClientDTO.fromClient(client));
     }
 
     @Override
@@ -37,7 +47,7 @@ public class ClientService implements IClienteService {
 
     @Override
     public void editClient(Long id, Client client) {
-        Client clientEdit = this.findClient(id).orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+        Client clientEdit = clientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
 
         NullAwareBeanUtils.copyNonNullProperties(client,clientEdit);
 

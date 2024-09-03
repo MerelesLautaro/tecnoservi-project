@@ -1,5 +1,6 @@
 package com.lautadev.tecnoservi_project.service;
 
+import com.lautadev.tecnoservi_project.dto.OrderDTO;
 import com.lautadev.tecnoservi_project.model.Order;
 import com.lautadev.tecnoservi_project.repository.IOrderRepository;
 import com.lautadev.tecnoservi_project.throwable.EntityNotFoundException;
@@ -7,6 +8,7 @@ import com.lautadev.tecnoservi_project.util.NullAwareBeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,13 +23,21 @@ public class OrderService implements IOrderService{
     }
 
     @Override
-    public List<Order> getOrders() {
-        return orderRepository.findAll();
+    public List<OrderDTO> getOrders() {
+        List<Order> orderList = orderRepository.findAll();
+        List<OrderDTO> orderDTOS = new ArrayList<>();
+
+        for(Order order:orderList){
+            orderDTOS.add(OrderDTO.fromOrder(order));
+        }
+
+        return orderDTOS;
     }
 
     @Override
-    public Optional<Order> findOrder(Long id) {
-        return orderRepository.findById(id);
+    public Optional<OrderDTO> findOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        return Optional.ofNullable(OrderDTO.fromOrder(order));
     }
 
     @Override
@@ -37,7 +47,7 @@ public class OrderService implements IOrderService{
 
     @Override
     public void editOrder(Long id, Order order) {
-        Order orderEdit = this.findOrder(id).orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+        Order orderEdit = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
 
         NullAwareBeanUtils.copyNonNullProperties(order,orderEdit);
 

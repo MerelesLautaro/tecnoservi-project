@@ -1,5 +1,6 @@
 package com.lautadev.tecnoservi_project.controller;
 
+import com.lautadev.tecnoservi_project.dto.ClientDTO;
 import com.lautadev.tecnoservi_project.model.Client;
 import com.lautadev.tecnoservi_project.service.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,13 @@ public class ClientController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<Client>> getClients(){
+    public ResponseEntity<List<ClientDTO>> getClients(){
         return ResponseEntity.ok(clientService.getClients());
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Client> findClient(@PathVariable Long id){
-        Optional<Client> client = clientService.findClient(id);
+    public ResponseEntity<ClientDTO> findClient(@PathVariable Long id){
+        Optional<ClientDTO> client = clientService.findClient(id);
         return client.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 

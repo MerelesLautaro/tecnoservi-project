@@ -1,5 +1,6 @@
 package com.lautadev.tecnoservi_project.controller;
 
+import com.lautadev.tecnoservi_project.dto.OrderDTO;
 import com.lautadev.tecnoservi_project.model.Order;
 import com.lautadev.tecnoservi_project.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,13 @@ public class OrderController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<Order>> getOrders(){
+    public ResponseEntity<List<OrderDTO>> getOrders(){
         return ResponseEntity.ok(orderService.getOrders());
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Order> findOrder(@PathVariable Long id){
-        Optional<Order> order = orderService.findOrder(id);
+    public ResponseEntity<OrderDTO> findOrder(@PathVariable Long id){
+        Optional<OrderDTO> order = orderService.findOrder(id);
         return order.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 

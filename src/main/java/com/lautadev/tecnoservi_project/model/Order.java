@@ -20,7 +20,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String address;
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime date;
     @ManyToOne
     private Task task;

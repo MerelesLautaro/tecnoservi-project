@@ -1,5 +1,6 @@
 package com.lautadev.tecnoservi_project.controller;
 
+import com.lautadev.tecnoservi_project.dto.EmployedDTO;
 import com.lautadev.tecnoservi_project.model.Employed;
 import com.lautadev.tecnoservi_project.service.IEmployedService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,14 @@ public class EmployedController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<Employed>> getEmployees(){
+    public ResponseEntity<List<EmployedDTO>> getEmployees(){
         return ResponseEntity.ok(employedService.getEmployees());
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Employed> findEmployed(@PathVariable Long id){
-        Optional<Employed> employed =  employedService.findEmployed(id);
-        return employed.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<EmployedDTO> findEmployed(@PathVariable Long id){
+        Optional<EmployedDTO> employedDTO =  employedService.findEmployed(id);
+        return employedDTO.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/delete/{id}")
