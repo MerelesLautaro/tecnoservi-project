@@ -4,6 +4,7 @@ import com.lautadev.tecnoservi_project.model.Task;
 import com.lautadev.tecnoservi_project.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/task")
+@PreAuthorize("permitAll()")
+@CrossOrigin(origins = "http://127.0.0.1:5500/")
 public class TaskController {
 
     @Autowired

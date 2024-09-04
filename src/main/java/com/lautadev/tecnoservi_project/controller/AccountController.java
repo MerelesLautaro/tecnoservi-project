@@ -12,6 +12,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/account")
+@PreAuthorize("permitAll()")
+@CrossOrigin(origins = "http://127.0.0.1:5500/")
 public class AccountController {
     @Autowired
     private IAccountService accountService;

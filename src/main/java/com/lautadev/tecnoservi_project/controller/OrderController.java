@@ -5,6 +5,7 @@ import com.lautadev.tecnoservi_project.model.Order;
 import com.lautadev.tecnoservi_project.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/order")
+@PreAuthorize("permitAll()")
+@CrossOrigin(origins = "http://127.0.0.1:5500/")
 public class OrderController {
     @Autowired
     private IOrderService orderService;
