@@ -23,6 +23,8 @@ public class EmployedDTO {
             return null;
         }
 
+        String workTeamName = (employed.getWorkTeam() != null) ? employed.getWorkTeam().getName() : "N/A";
+
         return new EmployedDTO(
                 employed.getId(),
                 employed.getName(),
@@ -30,7 +32,7 @@ public class EmployedDTO {
                 employed.getDni(),
                 employed.getEmail(),
                 employed.getCel(),
-                employed.getWorkTeam().getName()
+                workTeamName
         );
     }
 }

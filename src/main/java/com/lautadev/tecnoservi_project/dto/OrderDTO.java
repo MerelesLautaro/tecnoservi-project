@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDTO {
+    private Long id;
     private String address;
     private String nameClient;
     private LocalDateTime date;
@@ -29,6 +30,7 @@ public class OrderDTO {
         WorkTeamDTO workTeamDTO = WorkTeamDTO.fromWorkTeam(order.getWorkTeam());
 
         return new OrderDTO(
+                order.getId(),
                 order.getClient().getAddress(),
                 order.getClient().getName(),
                 order.getDate(),

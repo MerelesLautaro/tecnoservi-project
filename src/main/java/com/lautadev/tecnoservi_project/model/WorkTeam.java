@@ -19,6 +19,6 @@ public class WorkTeam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "workTeam")
+    @OneToMany(mappedBy = "workTeam", cascade = CascadeType.ALL)
     private List<Employed> employees;
 }

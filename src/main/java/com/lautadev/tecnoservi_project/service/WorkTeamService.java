@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class WorkTeamService implements IWorkTeamService {
     @Autowired
     private IWorkTeamRepository workTeamRepository;
@@ -54,6 +55,13 @@ public class WorkTeamService implements IWorkTeamService {
 
     @Override
     public void deleteWorkTeam(Long id) {
+        WorkTeam workTeam = workTeamRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+
+        for (Employed employed : workTeam.getEmployees()) {
+            employed.setWorkTeam(null);
+            employedService.editEmployed(employed.getId(),employed);
+        }
+
         workTeamRepository.deleteById(id);
     }
 
